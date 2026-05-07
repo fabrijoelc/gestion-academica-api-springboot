@@ -4,6 +4,7 @@ import com.codigo.spring.request.AsignaturaRequest;
 import com.codigo.spring.response.AsignaturaResponse;
 import com.codigo.spring.response.ResponseBase;
 import com.codigo.spring.service.AsignaturaService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +23,14 @@ public class AsignaturaController {
     }
 
     @PostMapping("/save")
+    @Operation(summary = "Crear asignatura", description = "Registra una asignatura con nombre y descripcion.")
     public ResponseBase<AsignaturaResponse> save(@Valid @RequestBody AsignaturaRequest request) {
         AsignaturaResponse saved = asignaturaService.save(request);
         return new ResponseBase<>(200, "Asignatura guardada correctamente", saved);
     }
 
     @GetMapping("/get/{id}")
+    @Operation(summary = "Consultar asignatura", description = "Busca una asignatura por su id.")
     public ResponseBase<AsignaturaResponse> getById(@PathVariable int id) {
         Optional<AsignaturaResponse> optional = asignaturaService.getById(id);
         if (optional.isPresent()) {
